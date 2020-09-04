@@ -23,6 +23,14 @@ export class AppComponent {
   displayedColumns: string[] = [' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
   dataSource = new MatTableDataSource(SheetHeader);
 
+  editor = {
+    // use to change the switch to input
+    editPointer: {
+      col: -1,
+      row: -1,
+    },
+  };
+
   constructor() {}
 
   deleteColumn(cindex) {
@@ -111,10 +119,10 @@ export class AppComponent {
   }
 
   addRow(rIndex) {
-
+    console.log("addRow");
     const newArr = new Array(this.displayedColumns.length);
 
-    let tempDataSource = new Array()
+    let tempDataSource = new Array();
 
     // insert empty cells for new row
     // look for the right row to edit
@@ -128,6 +136,11 @@ export class AppComponent {
     }
     this.dataSource.data = tempDataSource;
 
+  }
+
+  switchToInput(rindex, cindex) {
+    this.editor.editPointer.col = cindex;
+    this.editor.editPointer.row = rindex;
   }
 
 }
