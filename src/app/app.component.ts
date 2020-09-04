@@ -91,4 +91,43 @@ export class AppComponent {
     }
     this.dataSource.data = dataSourceTemp;
   }
+
+  deleteRow(rIndex) {
+    // prevent user from deleting all rows
+    if ( this.dataSource.data.length === 1 ) {
+      console.log('Cannot delete all rows.' );
+      return;
+    }
+
+    const tempDataSource = new Array();
+    // insert empty cells for new row
+    // look for the right row to edit
+    for (let i = 0; i < this.dataSource.data.length; i++) {
+      if (rIndex !== i) { // when not the index if deleted row then copy
+        tempDataSource.push(this.dataSource.data[i]);
+      }
+    }
+    this.dataSource.data = tempDataSource;
+  }
+
+  addRow(rIndex) {
+
+    const newArr = new Array(this.displayedColumns.length);
+
+    let tempDataSource = new Array()
+
+    // insert empty cells for new row
+    // look for the right row to edit
+    for (let i = 0; i < this.dataSource.data.length; i++) {
+      if (rIndex === i) { // if row index equal the index of clicked add button then add new header
+        tempDataSource.push(this.dataSource.data[i]);
+        tempDataSource.push(newArr);
+      } else {
+        tempDataSource.push(this.dataSource.data[i]);
+      }
+    }
+    this.dataSource.data = tempDataSource;
+
+  }
+
 }
